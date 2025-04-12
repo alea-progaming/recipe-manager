@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-itim: "Itim";
+}
+
+body {
+  background-color: #ffea71;
+}
