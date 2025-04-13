@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { setDoc, doc, getDoc } from "firebase/firestore"; // grab firebase functions
 import { toast } from "react-toastify";
+import createButton from "../assets/create-recipe.svg";
 const Dashboard = () => {
   const [userDeets, setUserDeets] = useState(null);
   const navigate = useNavigate();
@@ -42,12 +43,14 @@ const Dashboard = () => {
       {userDeets ? (
         <>
           {/*  watch tutorial about tailwind css responsive again */}
-          <div className="">
+          <div className="max-w-10/12 mx-auto">
             <h1>Eggs</h1>
             <div className="flex justify-between">
               <h3>
-                Welcome to your dashboard, <br></br> {userDeets.firstName}{" "}
-                {userDeets.lastName} !
+                Welcome to your dashboard, <br></br>{" "}
+                <span className="font-bold">
+                  {userDeets.firstName} {userDeets.lastName} !
+                </span>
               </h3>
               <button
                 className="border-b-black cursor-pointer"
@@ -56,22 +59,33 @@ const Dashboard = () => {
                 Log out
               </button>
             </div>
-            {/* Recipes */}
-            <div>
-              {/* Individual recipe container */}
-              <div className="border border-black mb-5">
-                {/* Recipe image */}
-                <h4>Chocolate Chip Banana Bread</h4>
-                <p>
-                  First time baking. My favorite part is the smell that
-                  surrounds my kitchen when it’s baking.
-                </p>
-                <div className="tags">
-                  <span>
-                    <svg className="hidden" />
-                    75 minutes
-                  </span>
-                  <span>Breakfast</span>
+            {/* Main Content */}
+            <div className="border border-amber-500">
+              <div className="flex items-center justify-between">
+                <h2>Your recipes</h2>
+                <span className="w-3 h-3 text-amber-950">
+                  <img src={createButton} alt="" />{" "}
+                  {/*navigate to create recipe form when finished*/}
+                </span>
+              </div>
+
+              {/* Recipes */}
+              <div>
+                {/* Individual recipe container */}
+                <div className="border border-black mb-5">
+                  {/* Recipe image */}
+                  <h4>Chocolate Chip Banana Bread</h4>
+                  <p>
+                    First time baking. My favorite part is the smell that
+                    surrounds my kitchen when it’s baking.
+                  </p>
+                  <div className="tags">
+                    <span>
+                      <svg className="hidden" />
+                      75 minutes
+                    </span>
+                    <span>Breakfast</span>
+                  </div>
                 </div>
               </div>
             </div>
