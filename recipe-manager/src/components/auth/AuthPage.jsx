@@ -5,32 +5,41 @@ import { useState } from "react";
 const AuthPage = () => {
   const [showLogin, setShowLogin] = useState(true);
   return (
-    <div className="flex items-center justify-center h-screen font-itim">
-      <div className="flex flex-col w-[80%] m-5 p-5 items-center justify-center border border-black">
-        <img src="" alt="" />
+    <div className="flex flex-col items-center justify-center h-screen font-itim">
+      <div className="flex flex-col items-center mb-6">
+        <img src="" alt="" /> {/* Web app logo display*/}
         <h1 className="text-3xl">Eggs</h1>
-        <div className="">
-          <div className="border border-amber-700">
-            {/* <h3 className="font-bold mb-5">Login | Signup</h3> */}
+      </div>
+      <div className="flex flex-col min-w-md border-2 border-black rounded-[10px] bg-white">
+        <div className="w-full p-3 flex flex-col justify-center">
+          <div className="relative flex items-center text-2xl ">
+            <button
+              className={`cursor-pointer mr-2 ${
+                showLogin ? "font-medium" : "font-light"
+              }`}
+              onClick={() => setShowLogin(true)}
+            >
+              Login
+            </button>
+            {/* <p className="text-3xl font-light">|</p> */}
+            <span className="bg-black h-6 w-[1px] mr-2" />
+            <button
+              className="cursor-pointer mr-2"
+              onClick={() => setShowLogin(false)}
+            >
+              Signup
+            </button>
 
-            <div className="flex">
-              <button
-                className="cursor-pointer"
-                onClick={() => setShowLogin(true)}
-              >
-                Login
-              </button>
-              <p className="text-5xl">|</p>
-              <button
-                className="cursor-pointer"
-                onClick={() => setShowLogin(false)}
-              >
-                Signup
-              </button>
-            </div>
-            {/* <hr className="relative bottom-3 w-5" /> */}
+            <span
+              className={`absolute bottom-0 left-0 h-0.5 w-5 -mb-1 bg-[#FFC471] transition-transform duration-300 ${
+                showLogin ? "translate-x-0" : "translate-x-18"
+              }`}
+            />
           </div>
-          {showLogin ? <Login /> : <Signup />}
+          {/* <hr className="relative bottom-3 w-5" /> */}
+          <div className="inline-block self-center p-3">
+            {showLogin ? <Login /> : <Signup />}
+          </div>
         </div>
       </div>
     </div>

@@ -27,8 +27,8 @@ function App() {
           path="/"
           element={user ? <Navigate to="/dashboard" /> : <AuthPage />}
         />
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} /> */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
       <ToastContainer />
