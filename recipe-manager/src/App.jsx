@@ -9,7 +9,7 @@ import Dashboard from "./components/Dashboard";
 import Signup from "./components/auth/Signup";
 import { ToastContainer } from "react-toastify";
 import { useState, useEffect } from "react";
-import { auth } from "./components/firebase";
+import { auth } from "./firebase";
 import AuthPage from "./components/auth/AuthPage";
 
 function App() {
