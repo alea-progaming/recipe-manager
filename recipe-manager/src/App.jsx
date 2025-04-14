@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import { useState, useEffect } from "react";
 import { auth } from "./firebase";
 import AuthPage from "./components/auth/AuthPage";
+import CreateRecipe from "./components/CreateRecipe";
 
 function App() {
   const [user, setUser] = useState();
@@ -30,6 +31,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/createRecipe" element={<CreateRecipe />} />
       </Routes>
       <ToastContainer />
     </Router>

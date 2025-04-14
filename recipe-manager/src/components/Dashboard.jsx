@@ -62,10 +62,12 @@ const Dashboard = () => {
             {/* Main Content */}
             <div className="border border-amber-500">
               <div className="flex items-center justify-between">
-                <h2>Your recipes</h2>
-                <span className="w-3 h-3 text-amber-950">
-                  <img src={createButton} alt="" />{" "}
-                  {/*navigate to create recipe form when finished*/}
+                <h2 className="text-3xl">Your recipes</h2>
+                {/*navigate to create recipe form when finished*/}
+                <span className="w-6 h-6 text-amber-950">
+                  <a href="/createRecipe">
+                    <img src={createButton} alt="" />
+                  </a>
                 </span>
               </div>
 
