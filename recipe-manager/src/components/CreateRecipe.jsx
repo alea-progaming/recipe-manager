@@ -1,5 +1,5 @@
 import React from "react";
-import Create from "./crud/Create";
+import Ingredients from "./crud/Ingredients";
 
 const CreateRecipe = () => {
   return (
@@ -24,7 +24,7 @@ const CreateRecipe = () => {
               { label: "Dinner", name: "dinner" },
               { label: "Snack", name: "snack" },
             ].map(({ label, name }, index) => (
-              <div>
+              <div key={index}>
                 <input type="radio" name="type" id={name} value={label} />
                 <label htmlFor={name}>{label}</label>
               </div>
@@ -44,7 +44,7 @@ const CreateRecipe = () => {
               </div>
             ))}
           </div>
-          <Create />
+          <Ingredients />
           <label htmlFor="">Procedures</label>
           <input type="text" className="border" />
           {/* Make edit and delete button */}
