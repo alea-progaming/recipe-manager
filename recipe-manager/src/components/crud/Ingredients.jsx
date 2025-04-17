@@ -23,18 +23,26 @@ const Ingredients = () => {
       isEditing: false, // just shows up normally with Edit/Delete buttons, in short, readOnly
     };
 
-    setIngredients([...ingredients, newIngredient]); // basically [existing ingredients..., new ingredient(Object)]
+    setIngredients([...ingredients, newIngredient]); // basically [existing ingredients..., new ingredient->object/instance]
     setNewIngredientInput("");
     setShowInput(false);
   };
 
   // sets the input to editing mode, which is why isEditing is true
   const handleEditToggle = (id) => {
-    setIngredients((prev) =>
-      prev.map(
-        (ingredient) =>
-          ingredient.id === id ? { ...ingredient, isEditing: true } : ingredient // make editable : leave as is
-      )
+    setIngredients(
+      (
+        prev // prev means current list of ingredients
+      ) =>
+        prev.map(
+          // map to that list of ingredients
+          (
+            ingredient // for each -ingredient-
+          ) =>
+            ingredient.id === id
+              ? { ...ingredient, isEditing: true }
+              : ingredient // looping through the ingredients array, if id matches ? make editable : leave as is
+        )
     );
   };
 
@@ -68,7 +76,7 @@ const Ingredients = () => {
       {ingredients.map((ingredient) => (
         // container for editing the ingredient items
         <div key={ingredient.id}>
-          {/* input for editing */}
+          {/* whether the input box has to be edited or is just only displaying the ingredient */}
           {ingredient.isEditing ? (
             <input
               type="text"
@@ -80,8 +88,8 @@ const Ingredients = () => {
             <input type="text" value={ingredient.text} readOnly />
           )}
 
-          {/* container for edit/delete buttons inside editing mode */}
-          <div>
+          {/* inside the input box is this container for edit/delete buttons inside editing mode */}
+          <div className="inline">
             {ingredient.isEditing ? (
               <button
                 type="button"
@@ -104,7 +112,8 @@ const Ingredients = () => {
           </div>
         </div>
       ))}
-      {/* <input type="text" className="border"  /> */}
+
+      {/* Show when Add button is pressed */}
       {showInput && (
         <div>
           <input
@@ -125,7 +134,7 @@ const Ingredients = () => {
 
       {!showInput && (
         <div>
-          <button className="self-start" onClick={handleAdd}>
+          <button type="button" className="self-start" onClick={handleAdd}>
             Add
           </button>
         </div>

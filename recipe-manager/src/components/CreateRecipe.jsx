@@ -1,5 +1,6 @@
 import React from "react";
 import Ingredients from "./crud/Ingredients";
+import Procedures from "./crud/Procedures";
 
 const CreateRecipe = () => {
   return (
@@ -45,11 +46,8 @@ const CreateRecipe = () => {
             ))}
           </div>
           <Ingredients />
-          <label htmlFor="">Procedures</label>
-          <input type="text" className="border" />
-          {/* Make edit and delete button */}
-          <button>Add</button> {/*To add procedures */}
-          {/* Buttons to apply and save */}
+          <Procedures />
+
           <button>Apply & Save</button>
           <button>Delete</button>
         </form>

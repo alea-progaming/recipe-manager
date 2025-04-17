@@ -14,8 +14,6 @@ const Login = () => {
       // email/password= credentials from the user
       await signInWithEmailAndPassword(auth, email, password);
 
-      // console.log("User logged in succesfully!");
-
       // Navigate to Dashboard (which I setup for each users)
       window.location.href = "/dashboard";
 
