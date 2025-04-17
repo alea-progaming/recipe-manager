@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
-import { setDoc, doc, getDoc } from "firebase/firestore"; // grab firebase functions
+import {
+  setDoc,
+  doc,
+  getDoc,
+  collection,
+  where,
+  getDocs,
+  query,
+} from "firebase/firestore"; // grab firebase functions
 import { toast } from "react-toastify";
 import createButton from "../assets/create-recipe.svg";
 const Dashboard = () => {
   const [userDeets, setUserDeets] = useState(null);
   const navigate = useNavigate();
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     const unsubscribeFetchUserData = auth.onAuthStateChanged(async (user) => {
@@ -18,6 +27,17 @@ const Dashboard = () => {
       if (docSnap.exists()) {
         // setting the user data from docSnap [which is the fetched data from firestore]
         setUserDeets(docSnap.data());
+
+        const recipesRef = collection(db, "Recipes");
+        const q = query(recipesRef, where("user", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+
+        const userRecipes = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setRecipes(userRecipes);
 
         console.log(docSnap);
       } else {
@@ -74,8 +94,7 @@ const Dashboard = () => {
               {/* Recipes */}
               <div>
                 {/* Individual recipe container */}
-                <div className="border border-black mb-5">
-                  {/* Recipe image */}
+                {/* <div className="border border-black mb-5">
                   <h4>Chocolate Chip Banana Bread</h4>
                   <p>
                     First time baking. My favorite part is the smell that
@@ -88,6 +107,28 @@ const Dashboard = () => {
                     </span>
                     <span>Breakfast</span>
                   </div>
+                </div> */}
+                <div>
+                  {recipes.length > 0 ? (
+                    recipes.map((recipe) => (
+                      <div
+                        key={recipe.id}
+                        className="border border-black mb-5 p-4 rounded"
+                      >
+                        <h4 className="text-xl font-bold">{recipe.name}</h4>
+                        <p className="text-gray-700">{recipe.description}</p>
+                        <div className="flex gap-4 mt-2 text-sm">
+                          <span>{recipe.timer} minutes</span>
+                          <span className="capitalize">{recipe.type}</span>
+                          <span>{recipe.servings} servings</span>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="italic">
+                      No recipes yet. Hit that "+" to create one!
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const Ingredients = () => {
-  const [ingredients, setIngredients] = useState([]);
+const Ingredients = ({ ingredients, setIngredients }) => {
   const [newIngredientInput, setNewIngredientInput] = useState("");
   const [showInput, setShowInput] = useState(false);
 

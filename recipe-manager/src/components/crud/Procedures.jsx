@@ -2,9 +2,8 @@ import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import Ingredients from "./Ingredients";
 
-const Procedures = () => {
+const Procedures = ({ procedures, setProcedures }) => {
   const [showInput, setShowInput] = useState(false); // to show input box
-  const [procedures, setProcedures] = useState([]); // store procedures here
   const [newProcedureInput, setNewProcedureInput] = useState(""); // the procedure
 
   // onClick: show input after clicking Add
