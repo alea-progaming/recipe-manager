@@ -65,7 +65,7 @@ const Procedures = ({ procedures, setProcedures }) => {
       {procedures.map((procedure) => (
         <div
           key={procedure.id}
-          className="flex items-center p-1 mb-2 rounded bg-white ml-3 border"
+          className="flex items-center justify-center p-1 mb-2 rounded bg-white ml-3 border"
         >
           {procedure.isEditing ? (
             <input
@@ -82,7 +82,7 @@ const Procedures = ({ procedures, setProcedures }) => {
           )}
 
           {/* Edit mode ON */}
-          <div className="flex items-center space-x-2 shrink-0">
+          <div className="flex items-center justify-between space-x-2 shrink-0">
             {procedure.isEditing ? (
               <button
                 type="button"
@@ -114,7 +114,7 @@ const Procedures = ({ procedures, setProcedures }) => {
 
       {/* Container input when Add button is pressed */}
       {showInput && (
-        <div className="flex items-center p-1 mb-2 rounded bg-white mx-3 border">
+        <div className="flex items-center justify-between p-1 mb-2 rounded bg-white mx-3 border">
           <input
             type="text"
             placeholder="Enter new procedure"
@@ -124,7 +124,7 @@ const Procedures = ({ procedures, setProcedures }) => {
               if (e.key === "Enter") handleNewInputSubmit()
             }}
             autoFocus
-            className="w-[85%] focus:border-transparent focus:outline-none"
+            className="w-full focus:border-transparent focus:outline-none"
           />
           <button
             type="button"

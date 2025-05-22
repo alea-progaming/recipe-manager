@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { auth, db } from "../firebase"
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { auth, db } from "../firebase";
 import {
   setDoc,
   doc,
@@ -9,53 +9,53 @@ import {
   where,
   getDocs,
   query,
-} from "firebase/firestore" // grab firebase functions
-import { toast } from "react-toastify"
-import createButton from "../assets/create-recipe.svg"
+} from "firebase/firestore"; // grab firebase functions
+import { toast } from "react-toastify";
+import createButton from "../assets/create-recipe.svg";
 const Dashboard = () => {
-  const [userDeets, setUserDeets] = useState(null)
-  const navigate = useNavigate()
-  const [recipes, setRecipes] = useState([])
+  const [userDeets, setUserDeets] = useState(null);
+  const navigate = useNavigate();
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     const unsubscribeFetchUserData = auth.onAuthStateChanged(async (user) => {
       // firebase listener to check if a user is logged in
       // console.log(user);
 
-      const docRef = doc(db, "Users", user.uid) // create firestore document reference to Users/{uid}
-      const docSnap = await getDoc(docRef) // actually fetch that documents from firestore
+      const docRef = doc(db, "Users", user.uid); // create firestore document reference to Users/{uid}
+      const docSnap = await getDoc(docRef); // actually fetch that documents from firestore
       if (docSnap.exists()) {
         // setting the user data from docSnap [which is the fetched data from firestore]
-        setUserDeets(docSnap.data())
+        setUserDeets(docSnap.data());
 
-        const recipesRef = collection(db, "Recipes")
-        const q = query(recipesRef, where("user", "==", user.uid))
-        const querySnapshot = await getDocs(q)
+        const recipesRef = collection(db, "Recipes");
+        const q = query(recipesRef, where("user", "==", user.uid));
+        const querySnapshot = await getDocs(q);
 
         const userRecipes = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-        }))
+        }));
 
-        setRecipes(userRecipes)
+        setRecipes(userRecipes);
 
-        console.log(docSnap)
+        console.log(docSnap);
       } else {
-        console.log("User is not logged in")
+        console.log("User is not logged in");
       }
-    })
+    });
 
-    return () => unsubscribeFetchUserData()
-  }, [])
+    return () => unsubscribeFetchUserData();
+  }, []);
 
   // function to log out user
   async function handleLogout() {
     try {
-      await auth.signOut() // firestore function to sign out
-      navigate("/")
-      console.log("User log out succesfully")
+      await auth.signOut(); // firestore function to sign out
+      navigate("/");
+      console.log("User log out succesfully");
     } catch (error) {
-      console.log("Error logging out: ", error.message)
+      console.log("Error logging out: ", error.message);
     }
   }
   return (
@@ -64,7 +64,7 @@ const Dashboard = () => {
         <>
           {/*  watch tutorial about tailwind css responsive again */}
           <div className="max-w-10/12 mx-auto font-ubuntu">
-            <h1 className="text-4xl mb-3.5 font-itim">Eggs</h1>
+            <h1 className="text-4xl mb-3.5">Eggs</h1>
             <div className="flex justify-between">
               <h3 className="text-[18px]">
                 Welcome to your dashboard, <br></br>{" "}
@@ -93,38 +93,24 @@ const Dashboard = () => {
               </div>
 
               {/* Recipes */}
-              <div className="mt-4">
-                {/* Individual recipe container */}
-                {/* <div className="border border-black mb-5">
-                  <h4>Chocolate Chip Banana Bread</h4>
-                  <p>
-                    First time baking. My favorite part is the smell that
-                    surrounds my kitchen when it’s baking.
-                  </p>
-                  <div className="tags">
-                    <span>
-                      <svg className="hidden" />
-                      75 minutes
-                    </span>
-                    <span>Breakfast</span>
-                  </div>
-                </div> */}
-
+              <div className="grid lg:grid-cols-3 gap-5 mt-4">
                 {recipes.length > 0 ? (
                   recipes.map((recipe) => (
                     <div
                       key={recipe.id}
-                      className="mb-5 px-4 py-2 rounded-[8px] bg-white font-ubuntu drop-shadow-[5px_5px_3px_rgba(0,0,0,0.2)]"
+                      className="flex flex-col justify-between h-full px-4 py-2 rounded-[8px] bg-white font-ubuntu drop-shadow-[5px_5px_3px_rgba(0,0,0,0.2)]"
                     >
-                      <h4 className="text-xl font-bold text-[#593316] underline mb-3">
-                        {recipe.name}
-                      </h4>
-                      <p className="text-gray-700">{recipe.description}</p>
-                      <div className="flex gap-4 mt-6 mb-1 text-sm">
-                        <span className="bg-[#527DE9] text-white p-2 rounded-[8px]">
+                      <div className="mb-3">
+                        <h4 className="text-xl font-bold text-[#593316] underline">
+                          {recipe.name}
+                        </h4>
+                        <p className="text-gray-700">{recipe.description}</p>
+                      </div>
+                      <div className="flex gap-4 text-sm">
+                        <span className="inline-block bg-[#527DE9] text-white p-2 rounded-[8px]">
                           {recipe.timer} minutes
                         </span>
-                        <span className="capitalize bg-[#E9B452] text-white p-2 rounded-[8px]">
+                        <span className="inline-block capitalize bg-[#E9B452] text-white p-2 rounded-[8px]">
                           {recipe.type}
                         </span>
                       </div>
@@ -149,6 +135,6 @@ const Dashboard = () => {
         </div>
       )}
     </>
-  )
-}
-export default Dashboard
+  );
+};
+export default Dashboard;

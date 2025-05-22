@@ -47,7 +47,7 @@ const CreateRecipe = () => {
 
     try {
       await addDoc(collection(db, "Recipes"), recipeData)
-      alert("Recipe saved!")
+      // alert("Recipe saved!")
 
       setRecipeName("")
       setRecipeDesc("")
@@ -62,6 +62,8 @@ const CreateRecipe = () => {
       toast.success(error.message, { position: "bottom-center" })
     }
   }
+
+  const maxDescChar = 150
   return (
     <>
       <div className="max-w-10/12 mx-auto m-3.5 font-itim">
@@ -85,9 +87,20 @@ const CreateRecipe = () => {
               id="recipeDesc"
               value={recipeDesc}
               rows="4"
-              onChange={(e) => setRecipeDesc(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length <= maxDescChar) {
+                  setRecipeDesc(e.target.value)
+                }
+              }}
               className="w-full p-1 mb-3 border-2 rounded bg-white"
             ></textarea>
+            <p
+              className={`w-full text-right ${
+                recipeDesc.length >= maxDescChar ? "text-red-600" : ""
+              }`}
+            >
+              {recipeDesc.length}/{maxDescChar}
+            </p>
             <label className="text-[18px]" htmlFor="recipeType">
               Type
             </label>
